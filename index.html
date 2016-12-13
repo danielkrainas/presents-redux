@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background="img/redux-logo-title-light.png"></section>
+				<section>
+					<h1>What is it?</h1>
+					<ul>
+						<li class="fragment">&ldquo;Predictable state container for JavaScript apps&rdquo;</li>
+						<li class="fragment">Created by Facebook in June 2015</li>
+						<li class="fragment">Inspired by Flux and Elm</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Why Redux?</h1>
+				</section>
+
+				<section>
+					<h1>Predictability</h1>
+					<img src="img/bill-murray-card.jpg" />
+				</section>
+
+				<section>
+					<h1>Unidirectional Flow</h1>
+					<img src="img/redux-flow.png" />
+				</section>
+
+				<section>
+					<h1>Immutable</h1>
+					<img style="padding: 15px" src="img/redux-tree.png" />
+				</section>
+
+				<section>
+					<h1>Simplicity</h1>
+					<img src="img/redux-simplicity.png" />
+				</section>
+
+				<section>
+					<h1>At a Glance</h1>
+					<pre><code class="javascript hljs" data-trim contenteditable spellcheck="false">
+import { createStore } from 'redux'
+
+// Initial State
+const initialState = { count: 0 }
+
+// Reducer
+let reducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count+1 }
+    default:
+      return state
+  }
+}
+
+const store = createStore(reducer, initialState)
+
+// Subscribe and log out
+store.subscribe((state) => {
+	console.log('count:', state.count)
+})
+
+// Action Creator
+function increment() {
+	return { type: 'INCREMENT' }
+}
+
+function ticker() {
+	store.dispatch(increment())
+	setTimeout(ticker, 1000)
+}
+
+ticker()
+
+					</code></pre>
+				</section>
+
+
+				<section>
+					<h1>State</h1>
+					<pre><code class="typescript hljs" data-trim contenteditable>
+type State = any
+					</code></pre>
+
+					<div class="fragment">
+						<h4>From the example</h4>
+						<pre><code class="javascript hljs" data-trim contenteditable>
+// Initial State
+const initialState = { count: 0 }
+						</code></pre>
+					</div>
+				</section>
+
+
+				<section>
+					<h1>Actions</h1>
+					<pre><code class="javascript hljs" data-trim contenteditable>
+type Action = Object
+					</code></pre>
+
+					<div class="fragment">
+						<h4>From the example</h4>
+						<pre><code class="javascript hljs" data-trim contenteditable>
+{ type: 'INCREMENT' }
+						</code></pre>
+					</div>
+				</section>
+
+
+				<section>
+					<h1>Action Creators</h1>
+					<pre><code class="typescript hljs" data-trim contenteditable>
+type ActionCreator = (...args: any) => Action | AsyncAction
+					</code></pre>
+
+					<div class="fragment">
+						<h4>From the example</h4>
+						<pre><code class="javascript hljs" data-trim contenteditable>
+function increment() {
+	return { type: 'INCREMENT' }
+}
+						</code></pre>
+					</div>
+
+					<div class="fragment">
+						<h4>Usage</h4>
+						<pre><code class="javascript hljs" data-trim contenteditable>
+store.dispatch(increment())
+						</code></pre>
+					</div>
+				</section>
+
+
+				<section>
+					<h1>Reducers</h1>
+					<pre><code class="typescript hljs" data-trim contenteditable>
+type Reducer&lt;S, A&gt; = (state: S, action: A) => S
+					</code></pre>
+
+					<div class="fragment">
+						<h4>From the example</h4>
+						<pre><code class="javascript hljs" data-trim contenteditable>
+let reducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count+1 }
+    default:
+      return state
+  }
+}
+						</code></pre>
+					</div>
+				</section>
+
+				<section>
+					<h1>But wait, there's more</h1>
+					<ul>
+						<li class="fragment">Store Creators</li>
+						<li class="fragment">Async Actions</li>
+						<li class="fragment">Middleware</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Questions/Comments</h1>
+				</section>
+
+				<section>
+					<h2>Thank you!</h2>
+					<p>Source @ <a href="https://github.com/danielkrainas/presents-redux" target="_blank">github.com/danielkrainas/presents-redux</a></p>
+					<p>Presentation @ <a href="https://github.com/danielkrainas/presents-redux" target="_blank">github.com/danielkrainas/presents-redux</a></p>
+
+					<h6>Powered by <a href="https://github.com/hakimel/reveal.js/" target="_blank">Reveal.js</a></h6>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
